@@ -23,10 +23,15 @@ class TrainingController
 
         $message = new SyncActionMessage('update', 123);
 
+        dump($message);
+
         echo "dispatching message to the bus from the controller" . PHP_EOL;
         echo "---------------------" . PHP_EOL;
 
         $handledMessage = $bus->dispatch($message);
+
+        dump($handledMessage);
+        dump($handledMessage->getMessage());
 
         echo "end of the controller action" . PHP_EOL;
         echo "---------------------" . PHP_EOL;
