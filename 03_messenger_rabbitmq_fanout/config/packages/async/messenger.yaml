@@ -1,0 +1,31 @@
+framework:
+    messenger:
+        transports:
+            async1:
+                dsn: "amqp://guest:guest@vdm_training_03_rabbitmq:5672/%2f"
+                options:
+                    auto_setup: "true"
+                    heartbeat: "60"
+                    read_timeout: "60"
+                    write_timeout: "60"
+                    prefetch_count: "1"
+                    queues:
+                        "async1_queue": ~
+                    exchange:
+                        name: "async1_exchange"
+
+            async2:
+                dsn: "amqp://guest:guest@vdm_training_03_rabbitmq:5672/%2f"
+                options:
+                    auto_setup: "true"
+                    heartbeat: "60"
+                    read_timeout: "60"
+                    write_timeout: "60"
+                    prefetch_count: "1"
+                    queues:
+                        "async2_queue": ~
+                    exchange:
+                        name: "async2_exchange"
+
+        routing:
+            App\Async\Message\AsyncActionMessage: [async1, async2]
