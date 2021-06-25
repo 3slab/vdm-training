@@ -1,4 +1,4 @@
-.PHONY: help up realup down reload ps exec build
+.PHONY: help up realup down reload ps exec build start-api start-consume
 
 default: help
 
@@ -37,14 +37,14 @@ ps:
 	@docker-compose ps
 
 exec:
-	@docker exec -it  vdm_training_01_messenger_sync /bin/bash
+	@docker exec -it vdm_training_02_messenger_async /bin/bash
 
 logs:
 	@docker-compose logs -f
 
 start-consume:
-	@docker-compose exec vdm_training_02_messenger_sync bin/console messenger:consume async -vvv
+	@docker-compose exec vdm_training_02_messenger_async bin/console messenger:consume async -vvv
 
 start-api:
 	@echo "\nRunning on your host on http://127.0.0.1:5000 :)\n\n-----------\n\n"; \
-	docker-compose exec vdm_training_02_messenger_sync php -S 0.0.0.0:80 -t public/;
+	docker-compose exec vdm_training_02_messenger_async php -S 0.0.0.0:80 -t public/;

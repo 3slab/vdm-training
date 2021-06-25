@@ -2,8 +2,8 @@ version: "3.4"
 
 services:
 
-  vdm_training_02_messenger_sync:
-    container_name: 'vdm_training_02_messenger_sync'
+  vdm_training_02_messenger_async:
+    container_name: 'vdm_training_02_messenger_async'
     working_dir: '/var/www/html'
     build:
       context: './'
