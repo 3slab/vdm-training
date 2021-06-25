@@ -12,7 +12,7 @@ framework:
         routing: {}
 ```
 
-**There is no routing definition for the message `App\Message\SyncActionMessage` dispatched in the `/` route.
+**There is no routing definition for the message `App\Message\SyncActionMessage` dispatched in the `/` route.**
 
 ## Installation
 

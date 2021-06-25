@@ -11,6 +11,8 @@ framework:
                     prefetch_count: "1"
                     queues:
                         "async_queue": ~
+                    exchange:
+                        name: "async_queue"
 
         routing:
             App\Message\AsyncActionMessage: async
