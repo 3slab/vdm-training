@@ -1,24 +1,10 @@
-# Example 02 : Messenger Asynchronous Dispatch
+# Example 03 : Messenger Asynchronous Dispatch in rabbitmq fanout mode
 
-This example shows how a message dispatched with a correct routing definition is processed asynchronously by messenger
-when running `messenger:consume`.
+This exercice bundles 3 examples to show :
 
-The important settings of this example :
-
-```yaml
-# config/packages/messenger.yaml
-
-framework:
-    messenger:
-        async:
-            dsn: "MESSENGER_DSN"
-
-        routing:
-            App\Message\AsyncActionMessage: [async, async2]
-
-```
-
-**When the message is dispatched it is sent to the async transport. When the message is consumed, the handler is executed.**
+- `async env` : a manual fanout mode in rabbitmq where the dispatcher loop over the transports
+- `fanout env` : a fanout mode handled on the rabbitmq side
+- `kafka env` : a fanout mode in kafka without changing the code used in `fanout env`
 
 ## Installation
 
