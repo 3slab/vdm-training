@@ -1,0 +1,38 @@
+framework:
+    messenger:
+        serializer:
+            default_serializer: messenger.transport.symfony_serializer
+            symfony_serializer:
+                format: json
+                context: { }
+
+        transports:
+            compute:
+                dsn: "amqp://guest:guest@vdm_training_05_rabbitmq:5672/%2f"
+                options:
+                    auto_setup: "true"
+                    heartbeat: "60"
+                    read_timeout: "60"
+                    write_timeout: "60"
+                    prefetch_count: "1"
+                    queues:
+                        "compute_queue": ~
+                    exchange:
+                        name: "compute_exchange"
+
+            output:
+                dsn: "amqp://guest:guest@vdm_training_05_rabbitmq:5672/%2f"
+                options:
+                    auto_setup: "true"
+                    heartbeat: "60"
+                    read_timeout: "60"
+                    write_timeout: "60"
+                    prefetch_count: "1"
+                    queues:
+                        "output_queue": ~
+                    exchange:
+                        name: "output_exchange"
+
+        routing:
+            App\Message\ComputeActionMessage: compute
+            App\Message\OutputActionMessage: output
