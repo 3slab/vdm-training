@@ -1,0 +1,33 @@
+framework:
+    messenger:
+        transports:
+            fanout1:
+                dsn: "amqp://guest:guest@vdm_training_04_rabbitmq:5672/%2f"
+                options:
+                    auto_setup: "true"
+                    heartbeat: "60"
+                    read_timeout: "60"
+                    write_timeout: "60"
+                    prefetch_count: "1"
+                    queues:
+                        "fanout1_queue": ~
+                    exchange:
+                        name: "fanout_exchange"
+                        type: fanout
+
+            fanout2:
+                dsn: "amqp://guest:guest@vdm_training_04_rabbitmq:5672/%2f"
+                options:
+                    auto_setup: "true"
+                    heartbeat: "60"
+                    read_timeout: "60"
+                    write_timeout: "60"
+                    prefetch_count: "1"
+                    queues:
+                        "fanout2_queue": ~
+                    exchange:
+                        name: "fanout_exchange"
+                        type: fanout
+
+        routing:
+            App\Fanout\Message\FanoutActionMessage: fanout1
