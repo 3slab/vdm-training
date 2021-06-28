@@ -1,0 +1,67 @@
+framework:
+    messenger:
+        transports:
+            fanout1:
+                dsn: "kafka://vdm_training_03_kafka:29092"
+                retry_strategy:
+                    max_retries: 0
+                options:
+                    flushTimeout: 10000
+                    commitAsync: false
+                    receiveTimeout: 10000
+                    topic:
+                        name: 'vdm_action'
+                    kafka_conf:
+                        group.id: 'vdm-consumer1'
+                        # producer
+                        retries: '2'
+                        request.timeout.ms: '30000'
+                        partitioner: 'consistent_random'
+                        compression.codec: 'none'
+                        # consumer
+                        enable.auto.offset.store: 'false'
+                        socket.keepalive.enable: 'true'
+                        metadata.max.age.ms: '180000'
+                        heartbeat.interval.ms: '3000'
+                        session.timeout.ms: '30000'
+                        # connection
+                        sasl.username: ''
+                        sasl.password: ''
+                        security.protocol: 'plaintext'
+                        sasl.mechanism: 'GSSAPI'
+                        bootstrap.servers: 'vdm_training_03_kafka:29092'
+                    topic_conf:
+                        request.timeout.ms: '30000'
+                        acks: '-1'
+                        auto.offset.reset: 'earliest'
+
+            fanout2:
+                dsn: "kafka://vdm_training_03_kafka:29092"
+                retry_strategy:
+                    max_retries: 0
+                options:
+                    commitAsync: false
+                    receiveTimeout: 10000
+                    topic:
+                        name: 'vdm_action'
+                    kafka_conf:
+                        group.id: 'vdm-consumer2'
+                        # consumer
+                        enable.auto.offset.store: 'false'
+                        socket.keepalive.enable: 'true'
+                        metadata.max.age.ms: '180000'
+                        heartbeat.interval.ms: '3000'
+                        session.timeout.ms: '30000'
+                        # connection
+                        sasl.username: ''
+                        sasl.password: ''
+                        security.protocol: 'plaintext'
+                        sasl.mechanism: 'GSSAPI'
+                        bootstrap.servers: 'vdm_training_03_kafka:29092'
+                    topic_conf:
+                        request.timeout.ms: '30000'
+                        acks: '-1'
+                        auto.offset.reset: 'earliest'
+
+        routing:
+            App\Fanout\Message\FanoutActionMessage: fanout1

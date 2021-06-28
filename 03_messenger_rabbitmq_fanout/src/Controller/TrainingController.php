@@ -24,7 +24,7 @@ class TrainingController
         echo "start of the controller action" . PHP_EOL;
         echo "---------------------" . PHP_EOL;
 
-        if ($appEnv === 'fanout') {
+        if ($appEnv === 'fanout' || $appEnv === 'kafka') {
             $message = new FanoutActionMessage('update', 123);
         } elseif ($appEnv === 'async') {
             $message = new AsyncActionMessage('update', 123);
