@@ -1,0 +1,22 @@
+framework:
+    messenger:
+        serializer:
+            default_serializer: messenger.transport.symfony_serializer
+            symfony_serializer:
+                format: json
+                context: { }
+
+        transports:
+            compute:
+                dsn: 'vdm+local://%kernel.project_dir%/local/compute.json?encodeBody=json'
+                retry_strategy:
+                    max_retries: 0
+
+            output:
+                dsn: 'vdm+local://%kernel.project_dir%/local/output.json?encodeBody=json'
+                retry_strategy:
+                    max_retries: 0
+
+        routing:
+            App\Message\ComputeActionMessage: compute
+            App\Message\OutputActionMessage: output

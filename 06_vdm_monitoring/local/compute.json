@@ -1,0 +1,14 @@
+{
+    "body": {
+        "payload": {
+            "action": "update",
+            "userId": 123
+        },
+        "metadatas": [],
+        "traces": []
+    },
+    "headers": {
+        "type": "App\\Message\\ComputeActionMessage",
+        "Content-Type": "application\/json"
+    }
+}
