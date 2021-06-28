@@ -2,8 +2,8 @@ version: "3.4"
 
 services:
 
-  vdm_training_03_messenger:
-    container_name: 'vdm_training_03_messenger'
+  vdm_training_03_app:
+    container_name: 'vdm_training_03_app'
     working_dir: '/var/www/html'
     build:
       context: './'

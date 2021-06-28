@@ -1,4 +1,4 @@
-.PHONY: help up realup down reload ps exec build
+.PHONY: help up realup down reload ps exec cc build
 
 default: help
 
@@ -11,6 +11,7 @@ help:
 	echo  "\033[0;32mrm\033[0m                    Remove stopped containers; \
 	echo  "\033[0;32mreload\033[0m                Runs down + up"; \
 	echo  "\033[0;32mexec\033[0m                  Connect to app container"; \
+	echo  "\033[0;32mcc\033[0m                    Clear sf cache"; \
 	echo  "\033[0;32mlogs\033[0m                  Shows logs (all containers)"; \
 	echo  "\033[0;32mstart\033[0m                 Start local dev server"; \
 	echo  "";
@@ -36,11 +37,14 @@ ps:
 	@docker-compose ps
 
 exec:
-	@docker exec -it  vdm_training_01_messenger_sync /bin/bash
+	@docker exec -it vdm_training_01_app /bin/bash
+
+cc:
+	@docker exec -it vdm_training_01_app bash -c "rm -rf /var/www/html/var/cache/*"
 
 logs:
 	@docker-compose logs -f
 
 start:
 	@echo "\nRunning on your host on http://127.0.0.1:5000 :)\n\n-----------\n\n"; \
-	docker-compose exec vdm_training_01_messenger_sync php -S 0.0.0.0:80 -t public/;
+	docker-compose exec vdm_training_01_app php -S 0.0.0.0:80 -t public/;

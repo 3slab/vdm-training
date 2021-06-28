@@ -1,4 +1,4 @@
-.PHONY: help up realup down reload ps exec build start-api start-consume
+.PHONY: help up realup down reload ps exec cc build start-api start-consume
 
 default: help
 
@@ -11,6 +11,7 @@ help:
 	echo  "\033[0;32mrm\033[0m                    Remove stopped containers; \
 	echo  "\033[0;32mreload\033[0m                Runs down + up"; \
 	echo  "\033[0;32mexec\033[0m                  Connect to app container"; \
+	echo  "\033[0;32mcc\033[0m                    Clear sf cache"; \
 	echo  "\033[0;32mlogs\033[0m                  Shows logs (all containers)"; \
 	echo  "\033[0;32mstart-api\033[0m             Start local dev server"; \
 	echo  "\033[0;32mstart-consume\033[0m         Start rabbitmq consumption"; \
@@ -37,14 +38,17 @@ ps:
 	@docker-compose ps
 
 exec:
-	@docker exec -it vdm_training_02_messenger_async /bin/bash
+	@docker exec -it vdm_training_02_app /bin/bash
+
+cc:
+	@docker exec -it vdm_training_02_app bash -c "rm -rf /var/www/html/var/cache/*"
 
 logs:
 	@docker-compose logs -f
 
 start-consume:
-	@docker-compose exec vdm_training_02_messenger_async bin/console messenger:consume async -vvv
+	@docker-compose exec vdm_training_02_app bin/console messenger:consume async -vvv
 
 start-api:
 	@echo "\nRunning on your host on http://127.0.0.1:5000 :)\n\n-----------\n\n"; \
-	docker-compose exec vdm_training_02_messenger_async php -S 0.0.0.0:80 -t public/;
+	docker-compose exec vdm_training_02_app php -S 0.0.0.0:80 -t public/;

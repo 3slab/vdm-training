@@ -1,4 +1,4 @@
-.PHONY: help up realup down reload ps exec build
+.PHONY: help up realup down reload ps exec cc build
 .PHONY: start-consume1 start-consume2 start-api
 
 default: help
@@ -12,6 +12,7 @@ help:
 	echo  "\033[0;32mrm\033[0m                      Remove stopped containers; \
 	echo  "\033[0;32mreload\033[0m                  Runs down + up"; \
 	echo  "\033[0;32mexec\033[0m                    Connect to app container"; \
+	echo  "\033[0;32mcc\033[0m                      Clear sf cache"; \
 	echo  "\033[0;32mlogs\033[0m                    Shows logs (all containers)"; \
 	echo  "\033[0;32mstart-api\033[0m               Start local dev server"; \
 	echo  "\033[0;32mstart-consume1\033[0m          Start rabbitmq consumption from fanout1 transport"; \
@@ -40,6 +41,9 @@ ps:
 
 exec:
 	@docker exec -it vdm_training_04_app /bin/bash
+
+cc:
+	@docker exec -it  vdm_training_04_app bash -c "rm -rf /var/www/html/var/cache/*"
 
 logs:
 	@docker-compose logs -f
