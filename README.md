@@ -9,3 +9,5 @@ This project is hosting all the scenarios used during VDM developer training.
 * [05 : VDM dev tools](./05_vdm_dev_tools)
 * [06 : VDM monitoring](./06_vdm_monitoring)
 * [07 : VDM project from scratch](./07_vdm_new_project)
+
+The [training slides (in French)](./VDM%20-%20Formation%20Developpeur.pdf) are available as PDF in this repository.
