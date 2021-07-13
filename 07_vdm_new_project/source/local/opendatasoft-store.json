@@ -1,0 +1,28 @@
+{
+    "body": {
+        "payload": {
+            "id": "1",
+            "long": 2.70755671874,
+            "lat": 48.4040157407,
+            "name": "Palais et le parc de Fontainebleau"
+        },
+        "metadatas": [],
+        "traces": [
+            {
+                "name": "opendatasoft_collect",
+                "event": "enter",
+                "timestamp": 1624976027.370337
+            },
+            {
+                "name": "opendatasoft_collect",
+                "event": "exit",
+                "timestamp": 1624976027.399264
+            }
+        ]
+    },
+    "headers": {
+        "type": "App\\Message\\OpenDataSoftStoreMessage",
+        "X-Message-Stamp-Symfony\\Component\\Messenger\\Stamp\\BusNameStamp": "[{\"busName\":\"messenger.bus.default\"}]",
+        "Content-Type": "application\/json"
+    }
+}

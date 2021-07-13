@@ -8,3 +8,4 @@ This project is hosting all the scenarios used during VDM developer training.
 * [04 : VDM asynchonous message](./04_vdm_async)
 * [05 : VDM dev tools](./05_vdm_dev_tools)
 * [06 : VDM monitoring](./06_vdm_monitoring)
+* [07 : VDM project from scratch](./07_vdm_new_project)

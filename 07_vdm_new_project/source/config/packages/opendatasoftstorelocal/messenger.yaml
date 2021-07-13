@@ -1,0 +1,22 @@
+framework:
+    messenger:
+        serializer:
+            default_serializer: messenger.transport.symfony_serializer
+            symfony_serializer:
+                format: json
+                context:
+                    json_encode_options: !php/const JSON_PRESERVE_ZERO_FRACTION
+
+        transports:
+            opendatasoft-store:
+                dsn: "vdm+local://%kernel.project_dir%/local/opendatasoft-store.json?encodeBody=json"
+                retry_strategy:
+                    max_retries: 0
+
+            opendatasoft-send-to-db:
+                dsn: "vdm+local://%kernel.project_dir%/local/opendatasoft-store-output.json?encodeBody=json"
+                retry_strategy:
+                    max_retries: 0
+
+        routing:
+            App\Message\OpenDataSoftPersistMessage: opendatasoft-send-to-db

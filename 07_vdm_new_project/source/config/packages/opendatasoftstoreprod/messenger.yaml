@@ -1,0 +1,37 @@
+framework:
+    messenger:
+        serializer:
+            default_serializer: messenger.transport.symfony_serializer
+            symfony_serializer:
+                format: json
+                context:
+                    json_encode_options: !php/const JSON_PRESERVE_ZERO_FRACTION
+
+        opendatasoft:
+            opendatasoft-store:
+                dsn: "%env(RABBITMQ_DSN)%"
+                retry_strategy:
+                    max_retries: 0
+                options:
+                    auto_setup: "true"
+                    heartbeat: "60"
+                    read_timeout: "60"
+                    write_timeout: "60"
+                    prefetch_count: "1"
+                    queues:
+                        "opendatasoft": ~
+
+            opendatasoft-send-to-db:
+                dsn: "vdm+doctrine_orm://"
+                retry_strategy:
+                    max_retries: 0
+                options:
+                    doctrine_executor: ~
+                    default_entity: App\Entity\CulturalSite
+                    entities:
+                        App\Entity\CulturalSite:
+                            selector:
+                                - id
+
+        routing:
+            App\Message\OpenDataSoftPersistMessage: opendatasoft-send-to-db

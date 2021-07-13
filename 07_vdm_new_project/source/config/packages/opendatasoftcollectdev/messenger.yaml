@@ -1,0 +1,42 @@
+framework:
+    messenger:
+        serializer:
+            default_serializer: messenger.transport.symfony_serializer
+            symfony_serializer:
+                format: json
+                context:
+                    json_encode_options: !php/const JSON_PRESERVE_ZERO_FRACTION
+
+        transports:
+            opendatasoft-collect:
+                dsn: "https://data.iledefrance.fr/api/records/1.0/search/?dataset=sites-labellises-patrimoine-mondial-de-lunesco-en-ile-de-france-donnee-minister0&q="
+                retry_strategy:
+                    max_retries: 0
+                options:
+                    method: GET
+                    http_options: {}
+                    http_executor: App\Executor\OpenDataSoftCollectHttpExecutor
+                    monitoring:
+                        enabled: true
+                    retry:
+                        enabled: true
+                        number: 5
+                        timeBeforeRetry: 5
+
+            opendatasoft-send-to-store:
+                dsn: "%env(RABBITMQ_DSN)%"
+                retry_strategy:
+                    max_retries: 0
+                options:
+                    auto_setup: "true"
+                    heartbeat: "60"
+                    read_timeout: "60"
+                    write_timeout: "60"
+                    prefetch_count: "1"
+                    queues:
+                        "opendatasoft": ~
+                    exchange:
+                        name: "opendatasoft"
+
+        routing:
+            App\Message\OpenDataSoftStoreMessage: opendatasoft-send-to-store
